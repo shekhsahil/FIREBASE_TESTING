@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DHT Readings</title>
+  </head>
+  <style>
+    .value {
+      color: rgb(17, 255, 0);
+      font-family: monospace;
+      font-weight: 1000;
+      font-size: 50px;
+      padding-left: 5px;
+    }
+    .data-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: row;
+      margin-top: 10%;
+    }
+    h2 {
+      color: rgb(0, 0, 0);
+      font-family: monospace;
+      font-size: 20px;
+      padding-left: 5px;
+    }
+    .data-head {
+      color: rgb(0, 0, 0);
+      font-family: monospace;
+      font-weight: 1000;
+      font-size: 40px;
+    }
+  </style>
+  <body>
+    <center>
+      <div class="data-head">
+        SOIL SESNORS VALUE TESTING @SOIL SESNE INNOVATORS
+      </div>
+    </center>
+
+    <div class="data-container">
+      <div class="data-item">
+        <h2>System 1 Flow sensor data</h2>
+        <p class="value" id="system1_flowsensor">10%</p>
+      </div>
+      <br />
+
+      <div class="data-item">
+        <h2>System 2 Flow sensor data</h2>
+        <p class="value" id="system2_flowsensor">10%</p>
+      </div>
+      <br />
+
+      <div class="data-item">
+        <h2>System 1 Soil Sensor 1 data</h2>
+        <p class="value" id="system1_soilsensor_1">10%</p>
+      </div>
+      <br />
+
+      <div class="data-item">
+        <h2>System 1 Soil Sensor 2 data</h2>
+        <p class="value" id="system1_soilsensor_2">10%</p>
+      </div>
+      <br />
+      <br />
+
+      <div class="data-item">
+        <h2>System 1 valve state <br /></h2>
+        <p class="value" id="system1_valve_state">10%</p>
+      </div>
+      <br />
+      <br />
+
+      <div class="data-item">
+        <h2>System 2 valve state</h2>
+        <p class="value" id="system2_valve_state">10%</p>
+      </div>
+      <br />
+
+      <div class="data-item">
+        <h2>System 2 Soil Sensor 1 data</h2>
+        <p class="value" id="system2_soilsensor_1">10%</p>
+      </div>
+      <br />
+
+      <div class="data-item">
+        <h2>System 2 Soil Sensor 2 data</h2>
+        <p class="value" id="system2_soilsensor_2">10%</p>
+      </div>
+      <br />
+    </div>
+    <!-- DATA SENDING -->
+
+    <form id="dataForm">
+      <select id="selectOption1">
+        <option value= "1">1</option>
+        <option value= "2">2</option>
+        <option value= "3">3</option>
+      </select>
+      <select id="selectOption2">
+        <!-- Your select options here -->
+        <option value= "1">1</option>
+        <option value= "2">2</option>
+        <option value= "3">3</option>
+
+      </select>
+      <input type="number" id="field_area" placeholder="field_area" />
+      <input type="number" id="moisture_data" placeholder="moisture_data" />
+      <button type="submit">Submit</button>
+    </form>
+    <!-- DATA SENDING -->
+
+    <!-- the scripts for products you want to access must be added-->
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-app.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration here (Do not use the existing configuration)
+      const firebaseConfig = {
+        apiKey: "AIzaSyAG9_-Ca9R9wBuoZy0mgKd4i4Ev_d1K69c",
+        authDomain: "soilsense-bc90c.firebaseapp.com",
+        databaseURL:
+          "https://soilsense-bc90c-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "soilsense-bc90c",
+        storageBucket: "soilsense-bc90c.appspot.com",
+        messagingSenderId: "991801646349",
+        appId: "1:991801646349:web:22a03d1cdb26831859e444",
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+
+      // getting reference to the database
+      var database = firebase.database();
+
+      //getting reference to the data we want
+      var dataRef1 = database.ref("/System 1/Flow_sensor");
+      var dataRef2 = database.ref("/System 2/Flow_sensor");
+      var dataRef3 = database.ref("/System 1/Soil_sensor1");
+      var dataRef4 = database.ref("/System 1/Soil_sensor2");
+      var dataRef5 = database.ref("/System 1/Valve_state");
+      var dataRef6 = database.ref("/System 2/Valve_state");
+      var dataRef7 = database.ref("/System 2/Soil_sensor1");
+      var dataRef8 = database.ref("/System 2/Soil_sensor2");
+
+      //fetch the data
+      dataRef1.on("value", function (getdata1) {
+        var data1 = getdata1.val();
+        document.getElementById("system1_flowsensor").innerHTML = data1;
+      });
+
+      dataRef2.on("value", function (getdata2) {
+        var data2 = getdata2.val();
+        document.getElementById("system2_flowsensor").innerHTML = data2;
+      });
+
+      dataRef3.on("value", function (getdata3) {
+        var data3 = getdata3.val();
+        document.getElementById("system1_soilsensor_1").innerHTML = data3;
+      });
+
+      dataRef4.on("value", function (getdata4) {
+        var data4 = getdata4.val();
+        document.getElementById("system1_soilsensor_2").innerHTML = data4;
+      });
+
+      dataRef5.on("value", function (getdata5) {
+        var data5 = getdata5.val();
+        document.getElementById("system1_valve_state").innerHTML = data5;
+      });
+
+      dataRef6.on("value", function (getdata6) {
+        var data6 = getdata6.val();
+        document.getElementById("system2_valve_state").innerHTML = data6;
+      });
+
+      dataRef7.on("value", function (getdata7) {
+        var data7 = getdata7.val();
+        document.getElementById("system2_soilsensor_1").innerHTML = data7;
+      });
+
+      dataRef8.on("value", function (getdata8) {
+        var data8 = getdata8.val();
+        document.getElementById("system2_soilsensor_2").innerHTML = data8;
+      });
+
+      // DATA SENDING TO FIREBASE SCRIPT START
+      const dataForm = document.getElementById("dataForm");
+
+      dataForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        // Get values from the form fields
+        const selectValue1 = document.getElementById("selectOption1").value;
+        const selectValue2 = document.getElementById("selectOption2").value;
+        const field_area = document.getElementById("field_area").value;
+        const moisture_data = document.getElementById("moisture_data").value;
+
+        // Get a reference to the Firebase database
+        const database = firebase.database();
+        const databaseRef = database.ref("/USER_INPUT_DATA");
+
+        // Create an object with the data to be stored
+        const data = {
+          selectOption1: selectValue1,
+          selectOption2: selectValue2,
+          field_area: field_area,
+          moisture_data: moisture_data,
+        };
+
+        // Store the data in the Firebase database
+
+        databaseRef.set(data);
+        // Clear the form after submission
+        dataForm.reset();
+      });
+
+      // DATA SENDING TO FIREBASE SCRIPT END
+    </script>
+  </body>
+</html>
