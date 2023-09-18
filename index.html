@@ -91,7 +91,7 @@
       </div>
       <br />
     </div>
-    <!-- DATA SENDING -->
+    <!-- DATA SENDING  START-->
 
     <form id="dataForm">
       <select id="selectOption1">
@@ -110,7 +110,29 @@
       <input type="number" id="moisture_data" placeholder="moisture_data" />
       <button type="submit">Submit</button>
     </form>
-    <!-- DATA SENDING -->
+    <!-- DATA SENDING  END -->
+
+
+    <!-- LOGIN AND SIGNUP FORM START  -->
+     <!-- Login Form -->
+     <h2>Login</h2>
+     <form>
+         <input type="email" id="email" placeholder="Email" required><br>
+         <input type="password" id="password" placeholder="Password" required><br>
+         <button type="button" onclick="login()">Login</button>
+     </form>
+ 
+     <!-- Signup Form -->
+     <h2>Sign Up</h2>
+     <form>
+         <input type="email" id="signupEmail" placeholder="Email" required><br>
+         <input type="password" id="signupPassword" placeholder="Password" required><br>
+         <button type="button" onclick="signup()">Sign Up</button>
+     </form>
+
+    <!-- LOGIN AND SIGNUP FORM END  -->
+
+
 
     <!-- the scripts for products you want to access must be added-->
 
@@ -225,6 +247,47 @@
       });
 
       // DATA SENDING TO FIREBASE SCRIPT END
+
+
+       // Function to handle user login
+       function login() {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            firebase.auth().signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // User successfully logged in
+                    alert("Login successful");
+                    // Redirect to the next page or perform further actions
+                    window.location.href = "next_page.html";
+                })
+                .catch((error) => {
+                    // Handle login errors
+                    alert(error.message);
+                });
+        }
+
+        // Function to handle user registration (signup)
+        function signup() {
+            const email = document.getElementById("signupEmail").value;
+            const password = document.getElementById("signupPassword").value;
+
+            firebase.auth().createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // User registered successfully
+                    alert("Registration successful");
+                    // Redirect to the next page or perform further actions
+                    window.location.href = "next_page.html";
+                })
+                .catch((error) => {
+                    // Handle registration errors
+                    alert(error.message);
+                });
+        }
     </script>
   </body>
 </html>
+
+
+
+
