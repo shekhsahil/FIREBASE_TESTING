@@ -95,44 +95,21 @@
 
     <form id="dataForm">
       <select id="selectOption1">
-        <option value= "1">1</option>
-        <option value= "2">2</option>
-        <option value= "3">3</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
       </select>
       <select id="selectOption2">
         <!-- Your select options here -->
-        <option value= "1">1</option>
-        <option value= "2">2</option>
-        <option value= "3">3</option>
-
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
       </select>
       <input type="number" id="field_area" placeholder="field_area" />
       <input type="number" id="moisture_data" placeholder="moisture_data" />
       <button type="submit">Submit</button>
     </form>
     <!-- DATA SENDING  END -->
-
-
-    <!-- LOGIN AND SIGNUP FORM START  -->
-     <!-- Login Form -->
-     <h2>Login</h2>
-     <form>
-         <input type="email" id="email" placeholder="Email" required><br>
-         <input type="password" id="password" placeholder="Password" required><br>
-         <button type="button" onclick="login()">Login</button>
-     </form>
- 
-     <!-- Signup Form -->
-     <h2>Sign Up</h2>
-     <form>
-         <input type="email" id="signupEmail" placeholder="Email" required><br>
-         <input type="password" id="signupPassword" placeholder="Password" required><br>
-         <button type="button" onclick="signup()">Sign Up</button>
-     </form>
-
-    <!-- LOGIN AND SIGNUP FORM END  -->
-
-
 
     <!-- the scripts for products you want to access must be added-->
 
@@ -143,9 +120,6 @@
     <script type="module">
       // Import the functions you need from the SDKs you need
       import { initializeApp } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-app.js";
-      // TODO: Add SDKs for Firebase products that you want to use
-      // https://firebase.google.com/docs/web/setup#available-libraries
-
       // Your web app's Firebase configuration here (Do not use the existing configuration)
       const firebaseConfig = {
         apiKey: "AIzaSyAG9_-Ca9R9wBuoZy0mgKd4i4Ev_d1K69c",
@@ -247,47 +221,6 @@
       });
 
       // DATA SENDING TO FIREBASE SCRIPT END
-
-
-       // Function to handle user login
-       function login() {
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-
-            firebase.auth().signInWithEmailAndPassword(email, password)
-                .then((userCredential) => {
-                    // User successfully logged in
-                    alert("Login successful");
-                    // Redirect to the next page or perform further actions
-                    window.location.href = "next_page.html";
-                })
-                .catch((error) => {
-                    // Handle login errors
-                    alert(error.message);
-                });
-        }
-
-        // Function to handle user registration (signup)
-        function signup() {
-            const email = document.getElementById("signupEmail").value;
-            const password = document.getElementById("signupPassword").value;
-
-            firebase.auth().createUserWithEmailAndPassword(email, password)
-                .then((userCredential) => {
-                    // User registered successfully
-                    alert("Registration successful");
-                    // Redirect to the next page or perform further actions
-                    window.location.href = "next_page.html";
-                })
-                .catch((error) => {
-                    // Handle registration errors
-                    alert(error.message);
-                });
-        }
     </script>
   </body>
 </html>
-
-
-
-
